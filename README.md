@@ -4,21 +4,26 @@ I am slowly building up steam to work on this thing. I’ve been wanting to for a 
 
 My plan for this “fork” is NOT to attempt to make VCC multi-platform (Windows/Mac/Linux).  But to, instead make improvements and maintain the current code-base as is, and keep it Windows only; a “VCC-Classic” if you will. 
 
-Along those lines, I am also NOT interested in changing it to only compile on the latest Dev tools, like VS2015 (or now VS2017).  In fact, I would like to maintain the ability to compile it with VS 6.0.  If I am NOT mistaken, it’s possible that VCC (like 1.42) might have been compatible w/ even Windows 98.  If SO… I would like to see it remain so. 
+Along those lines, I am also NOT interested in changing it to only compile on the latest Dev tools, like VS2015 (or now VS2017).  In fact, I would like to maintain the ability to compile it with VS 6.0. Back around July 2016 I clean-up some of the VS6 files and got it to compile/build. 
+
+If I am NOT mistaken, it’s possible that VCC (like 1.42) might have been compatible w/ even Windows 98. To me, It would be interesting to see it remain so. 
 
 There is NO reason to update the code so that it only compiles under the new Dev tools. The DirectDraw technology that VCC uses, is already outdated. "*DirectDraw has been deprecated since version 7*".  Which I believe dates back to Windows 98 timeframe anyway.  Updating the Dev Tools does not change this fact. 
 
 With that said, I will, however, look at adding “back” the capability of compiling/building it w/ newer versions of VS (including 15/17), but just not those exclusively. And it looks like that Mark McDougall has already done the work to get it to compile w/ mingw64.   
 
 ### My TODO – list of priorities. 
+* Study the code and begin making some notes on it -- put the notes in *.md files 
+* Locate my last changes from 6/2016 and sync w/ this baseline.
 * First thing is find and fix the aspect ratio. And make that the default. That thing bugs me to no end. 
 * Then add some standard zooms line 1x 1.5x 2x … (the 1x & 2x … are ideal, because then they are pixel perfect)
 * Next would be to refresh a ROM file and reset CPU when a file change occurs, for quick development of ROMs (also look at doing the same thing for DSK files (and .bin? files)
+* Add a ToolBar, that is dockable, w/ the most frequent settings.  
 * Look over the issues list on the VCC site.
 
 ----- Edit Bellow -----
 
-Compiling The VCC Sources
+### Compiling The VCC Sources
 
 Currently, VCC is compiled in C/C++ using "Microsoft Visual Studio 2015 Community", which is a free download from the MSDN downloads. When downloading VS2015, you must make sure to get the Win32 and WinXP compatibility packages to ensure build compatibility with older versions of Windows.
 
