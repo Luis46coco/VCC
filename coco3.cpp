@@ -18,7 +18,7 @@ This file is part of VCC (Virtual Color Computer).
 
 #include "windows.h"
 #include "stdio.h"
-#include "ddraw.h"
+// #include "ddraw.h" // JR_VC6 not actually used
 #include <math.h>
 #include "defines.h"
 #include "tcc1014graphics.h"

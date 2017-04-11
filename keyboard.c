@@ -45,7 +45,7 @@ This file is part of VCC (Virtual Color Computer).
 #include "joystickinput.h"
 #include "keyboardLayout.h"
 
-#include "xDebug.h"
+// #include "xDebug.h" // JR_VC6
 
 /*****************************************************************************/
 /*
@@ -278,7 +278,7 @@ void _vccKeyboardUpdateRolloverTable()
 */
 void vccKeyboardHandleKey(unsigned char key, unsigned char ScanCode, keyevent_e keyState)
 {
-	XTRACE("Key  : %c (%3d / 0x%02X)  Scan : %d / 0x%02X\n",key,key,key, ScanCode, ScanCode);
+	// XTRACE("Key  : %c (%3d / 0x%02X)  Scan : %d / 0x%02X\n",key,key,key, ScanCode, ScanCode); // JR_VC6
 
 	// check for shift key
 	// Left and right shift generate different scan codes
@@ -486,7 +486,7 @@ void vccKeyboardBuildRuntimeTable(keyboardlayout_e keyBoardLayout)
 		break;
 	}
 
-	XTRACE("Building run-time key table for layout # : %d - %s\n", keyBoardLayout, k_keyboardLayoutNames[keyBoardLayout]);
+	// XTRACE("Building run-time key table for layout # : %d - %s\n", keyBoardLayout, k_keyboardLayoutNames[keyBoardLayout]); // JR_VC6
 
 	// copy the selected keyboard layout to the run-time table
 	memset(KeyTransTable, 0, sizeof(KeyTransTable));

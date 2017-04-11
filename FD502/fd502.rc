@@ -52,26 +52,26 @@ END
 // Dialog
 //
 
-IDD_CONFIG DIALOG DISCARDABLE  0, 0, 288, 189
+IDD_CONFIG DIALOG DISCARDABLE  0, 0, 291, 196
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "FD-502 Configuration"
-FONT 8, "MS Sans Serif"
+FONT 10, "Tahoma"
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,235,7,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,236,26,50,14
+    DEFPUSHBUTTON   "OK",IDOK,238,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,238,25,50,14
     CONTROL         "OverClock Disk Drive",IDC_TURBO,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,4,58,87,10
     CONTROL         "Use Keyboard leds as drive indicators",IDC_KBLEDS,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,69,134,10
-    RADIOBUTTON     "External Rom Image",IDC_EXTROM,7,13,79,10
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,69,153,10
+    RADIOBUTTON     "External Rom Image",IDC_EXTROM,7,13,113,10
     RADIOBUTTON     "Disk Basic (disk11.rom file must be present in VCC folder)",
-                    IDC_TRSDOS,7,25,195,10
+                    IDC_TRSDOS,7,25,216,10
     RADIOBUTTON     "RGB Dos (rgbdos.rom file must be present in VCC folder)",
-                    IDC_RGB,7,37,192,10
-    GROUPBOX        "Dos Image",IDC_STATIC,3,3,211,49,BS_CENTER
+                    IDC_RGB,7,37,217,10
+    GROUPBOX        "Dos Image",IDC_STATIC,3,3,227,49,BS_CENTER
     EDITTEXT        IDC_ROMPATH,9,159,228,14,ES_AUTOHSCROLL | ES_READONLY
     PUSHBUTTON      "Browse",IDC_BROWSE,248,161,31,14
-    GROUPBOX        "External Disk ROM Image",IDC_STATIC,3,147,239,31,
+    GROUPBOX        "External Disk ROM Image",IDC_STATIC,3,149,239,31,
                     BS_CENTER
     CONTROL         "Persistent Disk Images",IDC_PERSIST,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,4,80,105,10
@@ -84,13 +84,13 @@ BEGIN
     LTEXT           "Windows 2000 or higher and  FDRAWREAD driver are required for Physical Disk access",
                     IDC_STATIC,85,119,141,22
     CONTROL         "Clock at 0xFF50-51",IDC_CLOCK,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,4,91,77,10
+                    WS_TABSTOP,4,91,94,10
 END
 
 IDD_NEWDISK DIALOG DISCARDABLE  0, 0, 186, 70
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Insert Disk Image"
-FONT 8, "MS Sans Serif"
+FONT 10, "Tahoma"
 BEGIN
     DEFPUSHBUTTON   "Yes",IDOK,106,52,32,14
     PUSHBUTTON      "No",IDCANCEL,143,52,32,14
@@ -121,9 +121,9 @@ BEGIN
     IDD_CONFIG, DIALOG
     BEGIN
         LEFTMARGIN, 3
-        RIGHTMARGIN, 285
+        RIGHTMARGIN, 288
         TOPMARGIN, 7
-        BOTTOMMARGIN, 186
+        BOTTOMMARGIN, 193
     END
 
     IDD_NEWDISK, DIALOG

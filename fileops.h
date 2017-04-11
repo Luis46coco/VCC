@@ -18,9 +18,9 @@ This file is part of VCC (Virtual Color Computer).
     along with VCC (Virtual Color Computer).  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+//#ifdef __cplusplus  // JR_VC6
+//extern "C" {
+//#endif
 
 void PathStripPath(char *);
 void ValidatePath(char *Path);
@@ -30,8 +30,8 @@ BOOL PathRemoveExtension(char *);
 char* PathFindExtension(char *);
 DWORD WritePrivateProfileInt(LPCTSTR, LPCTSTR, int, LPCTSTR);
 
-#ifdef __cplusplus
-	}
-#endif
+//#ifdef __cplusplus // JR_VC6
+//	}
+//#endif
 
 #endif

@@ -18,7 +18,7 @@ This file is part of VCC (Virtual Color Computer).
 
 #include <windows.h>
 #include <stdio.h>
-#include <stdbool.h>
+// #include <stdbool.h>  // JR_VC6
 #include "fileops.h"
 
 void ValidatePath(char *Path)
@@ -61,7 +61,7 @@ int CheckPath( char *Path)	//Return 1 on Error
 }
 
 // These are here to remove dependance on shlwapi.dll. ASCII only
-void PathStripPath ( char *TextBuffer)
+void PathStripPath(char *TextBuffer) 
 {
 	char TempBuffer[MAX_PATH] = "";
 	short Index = (short)strlen(TextBuffer);

@@ -55,7 +55,7 @@ END
 IDD_PROPPAGE DIALOG DISCARDABLE  0, 0, 192, 86
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
 CAPTION "DriveWire Server"
-FONT 8, "MS Sans Serif"
+FONT 10, "Tahoma"
 BEGIN
     RTEXT           "Server address:",IDC_STATIC,8,16,61,10
     RTEXT           "Server port:",IDC_STATIC,25,34,44,11

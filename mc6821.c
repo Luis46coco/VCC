@@ -32,7 +32,7 @@ This file is part of VCC (Virtual Color Computer).
 #include "cassette.h"
 #include "logger.h"
 #include "resource.h"
-#include <cstdint>
+// #include <cstdint> // JR_VC6
 
 static unsigned char rega[4]={0,0,0,0};
 static unsigned char regb[4]={0,0,0,0};
@@ -296,9 +296,10 @@ void AssertCart(void)
 }
 
 void PiaReset()
-{	
+{
 	// Clear the PIA registers
-	for (uint8_t index=0; index<4; index++)
+	unsigned char index=0; // JR_VC6
+	for (index=0;index<4;index++) // JR_VC6
 	{
 		rega[index]=0;
 		regb[index]=0;

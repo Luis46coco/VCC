@@ -33,7 +33,7 @@ This file is part of VCC (Virtual Color Computer).
 void SetupDisplay(void); //This routine gets called every time a software video register get updated.
 void MakeRGBPalette (void);
 void MakeCMPpalette(void);
-bool  DDFailedCheck(HRESULT hr, char *szMessage);
+bool DDFailedCheck(HRESULT hr, char *szMessage);
 char *DDErrorString(HRESULT hr);
 //extern STRConfig CurrentConfig;
 static unsigned char ColorValues[4]={0,85,170,255};
@@ -221,7 +221,7 @@ void UpdateScreen8 (SystemState *US8State)
 					}
 				} 
 			break;
-//			case 0:		//Hi Res text GraphicsMode=0 CompatMode=0 Ignore Bpp and Stretch
+		//	case 0:		//Hi Res text GraphicsMode=0 CompatMode=0 Ignore Bpp and Stretch
 
 		//	case 2:
 			case 3:
@@ -311,7 +311,7 @@ void UpdateScreen8 (SystemState *US8State)
 				} 
 			break;
 
-//******************************************************************** Low Res Text
+		//******************************************************************** Low Res Text
 			case 64:		//Low Res text GraphicsMode=0 CompatMode=1 Ignore Bpp and Stretch
 			case 65:
 			case 66:
@@ -451,7 +451,7 @@ void UpdateScreen8 (SystemState *US8State)
 
 			break;
 
-case 128+0: //Bpp=0 Sr=0 1BPP Stretch=1
+	case 128+0: //Bpp=0 Sr=0 1BPP Stretch=1
 	for (HorzBeam=0;HorzBeam<BytesperRow;HorzBeam+=2) //1bbp Stretch=1
 	{
 		WidePixel=US8State->WRamBuffer[(VidMask & ( Start+(unsigned char)(Hoffset+HorzBeam) ))>>1];
@@ -1971,7 +1971,7 @@ case 192+2:	//Bpp=0 Sr=2
 	for (HorzBeam=0;HorzBeam<BytesperRow;HorzBeam+=2) //1bbp Stretch=2
 	{
 		WidePixel=US8State->WRamBuffer[(VidMask & ( Start+(unsigned char)(Hoffset+HorzBeam) ))>>1];
-//************************************************************************************
+		//************************************************************************************
 		if (!MonType)
 		{ //Pcolor
 			for (Bit=7;Bit>=0;Bit--)
@@ -9466,7 +9466,6 @@ void DrawBottomBoarder24(SystemState *DTState)
 	return;
 }
 
-
 void DrawBottomBoarder32(SystemState *DTState)
 {
 	if (BoarderChange==0)
@@ -9522,7 +9521,6 @@ void SetGimeVdgMode2 (unsigned char Vdgmode2) //5 bits from PIA Register
 }
 
 //These grab the Video info for all COCO 3 modes
-
 void SetVerticalOffsetRegister(unsigned short Register)
 {
 	if (VerticalOffsetRegister != Register)
@@ -9615,18 +9613,16 @@ void InvalidateBoarder(void)
 	return;
 }
 
-
 void SetupDisplay(void)
 {
-
-	static unsigned char CC2Bpp[8]={1,0,1,0,1,0,1,0};
-	static unsigned char CC2LinesperRow[8]={12,3,3,2,2,1,1,1};
-	static unsigned char CC3LinesperRow[8]={1,1,2,8,9,10,11,200};
-	static unsigned char CC2BytesperRow[8]={16,16,32,16,32,16,32,32};
-	static unsigned char CC3BytesperRow[8]={16,20,32,40,64,80,128,160};
-	static unsigned char CC3BytesperTextRow[8]={32,40,32,40,64,80,64,80};
-	static unsigned char CC2PaletteSet[4]={8,0,10,4};
-	static unsigned char CCPixelsperByte[4]={8,4,2,2};
+	static unsigned char CC2Bpp[8] = {1,0,1,0,1,0,1,0};
+	static unsigned char CC2LinesperRow[8] = {12,3,3,2,2,1,1,1};
+	static unsigned char CC3LinesperRow[8] = {1,1,2,8,9,10,11,200};
+	static unsigned char CC2BytesperRow[8] = {16,16,32,16,32,16,32,32};
+	static unsigned char CC3BytesperRow[8] = {16,20,32,40,64,80,128,160};
+	static unsigned char CC3BytesperTextRow[8] = {32,40,32,40,64,80,64,80};
+	static unsigned char CC2PaletteSet[4] = {8,0,10,4};
+	static unsigned char CCPixelsperByte[4] = {8,4,2,2};
 	static unsigned char ColorSet=0,Temp1; 
 	ExtendedText=1;
 	switch (CompatMode)
@@ -9650,12 +9646,12 @@ void SetupDisplay(void)
 		break;
 
 	case 1:					//Color Computer 2 Mode
-		CC3BoarderColor=0;	//Black for text modes
-		BoarderChange=3;
-		NewStartofVidram= (512*CC2Offset)+(VerticalOffsetRegister & 0xE0FF)*8; 
-		GraphicsMode=( CC2VDGPiaMode & 16 )>>4; //PIA Set on graphics clear on text
-		VresIndex=0;
-		LinesperRow= CC2LinesperRow[CC2VDGMode];
+		CC3BoarderColor = 0;	//Black for text modes
+		BoarderChange = 3;
+		NewStartofVidram = (512*CC2Offset)+(VerticalOffsetRegister & 0xE0FF)*8; 
+		GraphicsMode = (CC2VDGPiaMode & 16) >> 4; // PIA Set on graphics clear on text
+		VresIndex = 0;
+		LinesperRow = CC2LinesperRow[CC2VDGMode];
 
 		if (GraphicsMode)
 		{
@@ -9667,13 +9663,13 @@ void SetupDisplay(void)
 			PalleteIndex=CC2PaletteSet[Temp1];
 		}
 		else
-		{	//Setup for 32x16 text Mode
-			Bpp=0;
-			BytesperRow=32;
-			InvertAll= (CC2VDGPiaMode & 4)>>2;
-			LowerCase= (CC2VDGPiaMode & 2)>>1;
+		{	// Setup for 32x16 text Mode
+			Bpp = 0;
+			BytesperRow = 32;
+			InvertAll = (CC2VDGPiaMode & 4)>>2;
+			LowerCase = (CC2VDGPiaMode & 2)>>1;
 			ColorSet = (CC2VDGPiaMode & 1);
-			Temp1= ( (ColorSet<<1) | InvertAll);
+			Temp1 = ((ColorSet << 1) | InvertAll);
 			switch (Temp1)
 			{
 			case 0:
@@ -9695,13 +9691,13 @@ void SetupDisplay(void)
 			}
 		}
 		break;
-}
-	ColorInvert= (CC3Vmode & 32)>>5;
-	LinesperScreen=Lpf[VresIndex];
+	}
+	ColorInvert = (CC3Vmode & 32) >> 5;
+	LinesperScreen = Lpf[VresIndex];
 	SetLinesperScreen(VresIndex);
-	VertCenter=VcenterTable[VresIndex]-4; //4 unrendered top lines
-	PixelsperLine= BytesperRow*CCPixelsperByte[Bpp];
-	PixelsperByte=CCPixelsperByte[Bpp];
+	VertCenter = VcenterTable[VresIndex]-4; //4 unrendered top lines
+	PixelsperLine = BytesperRow * CCPixelsperByte[Bpp];
+	PixelsperByte = CCPixelsperByte[Bpp];
 
 	if (PixelsperLine % 40)
 	{
@@ -9716,22 +9712,19 @@ void SetupDisplay(void)
 	VPitch=BytesperRow;
 	if (HorzOffsetReg & 128)
 		VPitch=256;
-	BoarderColor8=((CC3BoarderColor & 63) |128);
-	BoarderColor16=PalleteLookup16[MonType][CC3BoarderColor & 63];
-	BoarderColor32=PalleteLookup32[MonType][CC3BoarderColor & 63];
-	NewStartofVidram =(NewStartofVidram & VidMask)+DistoOffset; //DistoOffset for 2M configuration
-	MasterMode= (GraphicsMode <<7) | (CompatMode<<6)  | ((Bpp & 3)<<4) | (Stretch & 15);
+	BoarderColor8 = ((CC3BoarderColor & 63) |128);
+	BoarderColor16 = PalleteLookup16[MonType][CC3BoarderColor & 63];
+	BoarderColor32 = PalleteLookup32[MonType][CC3BoarderColor & 63];
+	NewStartofVidram = (NewStartofVidram & VidMask) + DistoOffset; //DistoOffset for 2M configuration
+	MasterMode = (GraphicsMode << 7) | (CompatMode << 6)  | ((Bpp & 3) << 4) | (Stretch & 15);
 	return;
 }
-
 
 void GimeInit(void)
 {
 	//Nothing but good to have.
 	return;
 }
-
-
 
 void GimeReset(void)
 {
@@ -9769,7 +9762,6 @@ void SetVideoBank(unsigned char data)
 	return;
 }
 
-
 void MakeRGBPalette (void)
 {
 	unsigned char Index=0;
@@ -9794,7 +9786,6 @@ void MakeRGBPalette (void)
 	}
 	return;
 }
-
 
 void MakeCMPpalette(void)	//Stolen from M.E.S.S.
 {
@@ -9880,7 +9871,7 @@ unsigned char SetMonitorType(unsigned char Type)
 			Pallete32Bit[PalNum]=PalleteLookup32[MonType][Pallete[PalNum]];
 			Pallete8Bit[PalNum]= PalleteLookup8[MonType][Pallete[PalNum]];
 		}
-//		CurrentConfig.MonitorType=MonType;
+		// CurrentConfig.MonitorType=MonType;
 	}
 	return(MonType);
 }
@@ -9912,5 +9903,3 @@ unsigned char SetColorInvert(unsigned char Tmp)
 	return(ColorInvert);
 }
 */
-
-

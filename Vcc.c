@@ -50,7 +50,7 @@ This file is part of VCC (Virtual Color Computer).
 #include "hd6309.h"
 #include "mc6809.h"
 #include "mc6821.h"
-#include "profiler.h"
+// #include "profiler.h" // JR_VC6
 #include "keyboard.h"
 #include "coco3.h"
 #include "pakinterface.h"
@@ -165,6 +165,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		MessageBox(0,"Can't create Thread!!","Error",0);
 		return(0);
 	}
+	
 	hEMUThread = (HANDLE)_beginthreadex( NULL, 0, &EmuLoop, hEvent, 0, &threadID );
 	if (hEMUThread==NULL)
 	{
@@ -175,7 +176,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	WaitForSingleObject( hEvent, INFINITE );
 	SetThreadPriority(hEMUThread,THREAD_PRIORITY_NORMAL);
 
-	//InitializeCriticalSection(&FrameRender);
+	// InitializeCriticalSection(&FrameRender);
 
 	while (BinaryRunning) 
 	{
@@ -192,7 +193,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	CloseHandle( hEvent ) ;	
 	CloseHandle( hEMUThread ) ;
 	timeEndPeriod(1);
-	profiler_deinit_hook ();
+	// profiler_deinit_hook (); // JR_VC6
 	UnloadDll();
 	SoundDeInit();
 	WriteIniFile(); //Save Any changes to ini File
@@ -236,7 +237,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 						(DLGPROC)About);
 				    break;
 
-				case ID_CONFIGURE_OPTIONS:				
+				case ID_CONFIGURE_OPTIONS:
 #ifdef CONFIG_DIALOG_MODAL
 					// open config dialog modally
 					DialogBox(EmuState.WindowInstance,
@@ -313,12 +314,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 //			ascii=kb_char;
 //			sprintf(ttbuff,"Getting REAL CHAR %i",ascii);
 //			WriteLine ( ttbuff);
-//			KeyboardEvent(kb_char,OEMscan,1); //Capture ascii value for scancode
+//			KeyboardEvent(kb_char,OEMscan,1); // Capture ascii value for scancode
+			
 			return 0;
 			break;
 
 		case WM_KEYUP:
 		case WM_SYSKEYUP:
+
 			/*
 				lParam
 
@@ -336,7 +339,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			// send emulator key up event to the emulator
 			// TODO: Key up checks whether the emulation is running, this does not
 
-			vccKeyboardHandleKey(kb_char,OEMscan, kEventKeyUp);
+			vccKeyboardHandleKey(kb_char, OEMscan, kEventKeyUp);
 			
 			return 0;
 		break;
@@ -680,7 +683,7 @@ unsigned __stdcall EmuLoop(void *Dummy)
 {
 	HANDLE hEvent = (HANDLE)Dummy;
 	static float FPS;
-	static unsigned int FrameCounter=0;	
+	static unsigned int FrameCounter=0;
 	CalibrateThrottle();
 	Sleep(30);
 	SetEvent(hEvent) ;
@@ -701,7 +704,7 @@ unsigned __stdcall EmuLoop(void *Dummy)
 		}
 
 		StartRender();
-		for (uint8_t Frames = 1; Frames <= EmuState.FrameSkip; Frames++)
+		for (unsigned char Frames = 1; Frames <= EmuState.FrameSkip; Frames++) // JR_VC6
 		{
 			FrameCounter++;
 			if (EmuState.ResetPending != 0) {
@@ -743,7 +746,7 @@ unsigned __stdcall EmuLoop(void *Dummy)
 		GetModuleStatus(&EmuState);
 		
 		char ttbuff[256];
-		snprintf(ttbuff,sizeof(ttbuff),"Skip:%2.2i | FPS:%3.0f | %s @ %2.2fMhz| %s",EmuState.FrameSkip,FPS,CpuName,EmuState.CPUCurrentSpeed,EmuState.StatusLine);
+		sprintf(ttbuff,"Skip:%2.2i | FPS:%3.0f | %s @ %2.2fMhz| %s",EmuState.FrameSkip,FPS,CpuName,EmuState.CPUCurrentSpeed,EmuState.StatusLine); // JR_VC6
 		SetStatusBarText(ttbuff,&EmuState);
 		
 		if (Throttle )	//Do nothing untill the frame is over returning unused time to OS

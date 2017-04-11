@@ -22,7 +22,7 @@ This file is part of VCC (Virtual Color Computer).
 #include "mc6809.h"
 #include "mc6809defs.h"
 #include "tcc1014mmu.h"
-#include "profiler.h"
+// #include "profiler.h" // JR_VC6
 
 //Global variables for CPU Emulation-----------------------
 
@@ -95,7 +95,7 @@ void MC6809Reset(void)
 	pc.Reg=MemRead16(VRESET);	//PC gets its reset vector
 	SetMapType(0);
 	
-	profiler_reset_hook ();
+	// profiler_reset_hook (); // JR_VC6
 	
 	return;
 }
@@ -122,7 +122,7 @@ void MC6809Init(void)
 	cc[I]=1;
 	cc[F]=1;
 	
-	profiler_init_hook ();
+	// profiler_init_hook (); // JR_VC6
 	
 	return;
 }
@@ -132,15 +132,17 @@ int MC6809Exec( int CycleFor)
 static unsigned char opcode=0;
 static unsigned char msn,lsn;
 
-int CycleForCounter = 0;
+// int CycleForCounter = 0; // JR_VC6
 
-while (CycleForCounter<CycleFor) {
+// while (CycleForCounter<CycleFor) { // JR_VC6
 
-  unsigned char opcode;
-  unsigned char opcode_post_byte;
+//   unsigned char opcode; // JR_VC6
+//   unsigned char opcode_post_byte; // JR_VC6
   
-  CycleCounter=0; 
-  
+CycleCounter=0; 
+
+while (CycleCounter<CycleFor) { // JR_VC6
+
 	if (PendingInterupts)
 	{
 		if (PendingInterupts & 4)
@@ -161,12 +163,14 @@ while (CycleForCounter<CycleFor) {
 	if (SyncWaiting==1)
 		return(0);
 
-  opcode = MemRead8(pc.Reg);
-  opcode_post_byte = MemRead8(pc.Reg+1);
-  profiler_fetch_hook (pc.Reg, opcode, opcode_post_byte);
-  pc.Reg++;
+  // opcode = MemRead8(pc.Reg); // JR_VC6
+  // opcode_post_byte = MemRead8(pc.Reg+1); // JR_VC6
+  // profiler_fetch_hook (pc.Reg, opcode, opcode_post_byte); // JR_VC6
+  // pc.Reg++; // JR_VC6
 
-switch (opcode){
+// switch (opcode){ // JR_VC6
+
+switch (MemRead8(pc.Reg++)) { // JR_VC6
 
 case NEG_D: //0
 	temp16=(dp.Reg |MemRead8(pc.Reg++));
@@ -3002,13 +3006,14 @@ default:
 	break;
 	}//End Switch
 
-  profiler_post_fetch_hook (pc.Reg, CycleCounter);
+    // profiler_post_fetch_hook (pc.Reg, CycleCounter); // JR_VC6
   	
-	CycleForCounter += CycleCounter;
+	// CycleForCounter += CycleCounter; // JR_VC6
 	
 }//End While
 
-return(CycleFor-CycleForCounter);
+// return(CycleFor-CycleForCounter); // JR_VC6
+return(CycleFor-CycleCounter); // JR_VC6
 
 }
 
@@ -3025,7 +3030,7 @@ void cpu_firq(void)
 		cc[I]=1;
 		cc[F]=1;
 		pc.Reg=MemRead16(VFIRQ);
-		profiler_firq_hook (pc.Reg);
+		// profiler_firq_hook (pc.Reg); // JR_VC6
 	}
 	PendingInterupts=PendingInterupts & 253;
 	return;
@@ -3051,7 +3056,7 @@ void cpu_irq(void)
 		MemWrite8(A_REG,--s.Reg);
 		MemWrite8(getcc(),--s.Reg);
 		pc.Reg=MemRead16(VIRQ);
-		profiler_irq_hook (pc.Reg);
+		// profiler_irq_hook (pc.Reg); // JR_VC6
 		cc[I]=1; 
 	} //Fi I test
 	PendingInterupts=PendingInterupts & 254;
@@ -3076,7 +3081,7 @@ void cpu_nmi(void)
 	cc[I]=1;
 	cc[F]=1;
 	pc.Reg=MemRead16(VNMI);
-		profiler_nmi_hook (pc.Reg);
+		// profiler_nmi_hook (pc.Reg); // JR_VC6
 	PendingInterupts=PendingInterupts & 251;
 	return;
 }

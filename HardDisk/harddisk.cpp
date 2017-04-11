@@ -26,9 +26,9 @@ This file is part of VCC (Virtual Color Computer).
 #include "cloud9.h"
 #include "..\fileops.h"
 
-constexpr size_t EXTROMSIZE = 8192;
-static char FileName[MAX_PATH] { 0 };
-static char IniFile[MAX_PATH] { 0 };
+#define EXTROMSIZE 8192 // JR_VS6
+static char FileName[MAX_PATH] = ""; // JR_VS6
+static char IniFile[MAX_PATH] = "";  // JR_VS6
 
 typedef unsigned char (*MEMREAD8)(unsigned short);
 typedef void (*MEMWRITE8)(unsigned char,unsigned short);

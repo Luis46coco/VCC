@@ -45,7 +45,7 @@ This file is part of VCC (Virtual Color Computer).
 #define ASSERTCART		4096
 
 // Storage for Pak ROMs
-static uint8_t *ExternalRomBuffer = nullptr; 
+static unsigned char *ExternalRomBuffer = NULL; // JR_VC6
 static bool RomPackLoaded = false;
 
 extern SystemState EmuState;
@@ -340,49 +340,51 @@ int InsertModule (char *ModulePath)
 Load a ROM pack
 return total bytes loaded, or 0 on failure
 */
+#define PAK_MAX_MEM 0x40000  // JR_VC6    
+
 int load_ext_rom(char filename[MAX_PATH])
 {
-	constexpr size_t PAK_MAX_MEM = 0x40000;
-
+	// constexpr size_t PAK_MAX_MEM = 0x40000; // JR_VC6
+	
 	struct stat	fs;
-	int					fd;
-
+	int	fd;
+	
 	// If there is an existing ROM, ditch it
-	if (ExternalRomBuffer != nullptr) {
+	if (ExternalRomBuffer != NULL) { // JR_VC6
 		free(ExternalRomBuffer);
 	}
 	
 	// Allocate memory for the ROM
-	ExternalRomBuffer = (uint8_t*)malloc(PAK_MAX_MEM);
+	ExternalRomBuffer = (unsigned char*)malloc(PAK_MAX_MEM); // JR_VC6
 
 	// If memory was unable to be allocated, fail
-	if (ExternalRomBuffer == nullptr) {
-    MessageBox(0, "cant allocate ram", "Ok", 0);
-    return 0;
+	if (ExternalRomBuffer == NULL) { // JR_VC6
+		MessageBox(0, "cant allocate ram", "Ok", 0);
+		return 0;
 	}
 	
 	// Open the ROM file, fail if unable to
 	FILE *rom_handle = fopen(filename, "rb");
-	if (rom_handle == nullptr) return 0;
-	fd = fileno (rom_handle);
-	if (fstat	(fd, &fs)) {
+	if (rom_handle == NULL) return 0; // JR_VC6
+	fd = fileno(rom_handle);
+	if (fstat(fd, &fs)) {
 		MessageBox(0, "fstat() failed!", "Ok", 0);
 		return (0);
 	}
-
+	// Load the file, one byte at a time.. (TODO: Get size and read entire block)
   if (fs.st_size > PAK_MAX_MEM)
     fs.st_size = PAK_MAX_MEM;
     
   // *** quick hack for msmcdoug only
-  if (fs.st_size > 16*1024)
+  if (fs.st_size > 16*1024) // greater than 16k
   {
-    fread (&ExternalRomBuffer[16*1024], sizeof(uint8_t), 16*1024, rom_handle);    
-    fread (ExternalRomBuffer, sizeof(uint8_t), fs.st_size-16*1024, rom_handle);    
-  }
+    fread (&ExternalRomBuffer[16*1024], sizeof(unsigned char), 16*1024, rom_handle);  // JR_VC6  
+    fread (ExternalRomBuffer, sizeof(unsigned char), fs.st_size-16*1024, rom_handle); // JR_VC6 
+	}
   else
   // *** end of quick hack
         
-  fread (ExternalRomBuffer, sizeof(uint8_t), fs.st_size, rom_handle);    
+  fread (ExternalRomBuffer, sizeof(unsigned char), fs.st_size, rom_handle); // JR_VC6
 	
 	fclose(rom_handle);
 	
@@ -441,11 +443,11 @@ void UnloadPack(void)
 	strcpy(Modname,"Blank");
 	RomPackLoaded=false;
 	SetCart(0);
-	
-	if (ExternalRomBuffer != nullptr) {
+
+	if (ExternalRomBuffer != NULL) { // JR_VC6
 		free(ExternalRomBuffer);
 	}
-	ExternalRomBuffer=nullptr;
+	ExternalRomBuffer=NULL;  // JR_VC6
 
 	EmuState.ResetPending=2;
 	DynamicMenuCallback( (char *)"",0, 0); //Refresh Menus

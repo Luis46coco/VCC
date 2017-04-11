@@ -694,11 +694,12 @@ LRESULT CALLBACK DisplayConfig(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 
 LRESULT CALLBACK InputConfig(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	int x = 0;  // JR_VC6
 	switch (message)
 	{
 		case WM_INITDIALOG:
 			// copy keyboard layout names to the pull-down menu
-			for (int x = 0; x <kKBLayoutCount; x++)
+			for (x = 0; x < kKBLayoutCount; x++) // JR_VC6
 			{
 				SendDlgItemMessage(hDlg,IDC_KBCONFIG,CB_ADDSTRING,(WPARAM)0,(LPARAM)k_keyboardLayoutNames[x]);
 			}

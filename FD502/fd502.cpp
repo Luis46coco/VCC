@@ -67,6 +67,7 @@ static unsigned long RealDisks=0;
 long CreateDisk (unsigned char);
 static char TempFileName[MAX_PATH]="";
 unsigned char LoadExtRom( unsigned char,char *);
+
 BOOL WINAPI DllMain(
     HINSTANCE hinstDLL,  // handle to DLL module
     DWORD fdwReason,     // reason for calling function
@@ -87,7 +88,7 @@ BOOL WINAPI DllMain(
 
 extern "C" 
 {          
-	__declspec(dllexport) void ModuleName(char *ModName,char *CatNumber,DYNAMICMENUCALLBACK Temp)
+	__declspec(dllexport) void ModuleName(char *ModName, char *CatNumber, DYNAMICMENUCALLBACK Temp)
 	{
 		int ErrorNumber=0;
 		LoadString(g_hinstDLL,IDS_MODULE_NAME,ModName, MAX_LOADSTRING);
@@ -206,6 +207,7 @@ extern "C"
 	}
 }
 */
+
 extern "C"
 {
 	__declspec(dllexport) unsigned char PakMemRead8(unsigned short Address)
@@ -213,6 +215,7 @@ extern "C"
 		return(RomPointer[SelectRom][Address & (EXTROMSIZE-1)]);
 	}
 }
+
 /*
 extern "C"
 {
@@ -272,8 +275,8 @@ LRESULT CALLBACK Config(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 				for (temp2=0;temp2<5;temp2++)
 						SendDlgItemMessage (hDlg,VirtualDrive[temp], CB_ADDSTRING, 0,(LPARAM) VirtualNames[temp2]);
 
-//			GetDlgItem(hDlg,IDC_DISKA)->EnableWindow(FALSE); 
-//			SendDlgItemMessage (hDlg, IDC_DISKA,WM_ENABLE  ,(WPARAM)0,(LPARAM)0);
+			// GetDlgItem(hDlg,IDC_DISKA)->EnableWindow(FALSE); 
+			// SendDlgItemMessage (hDlg, IDC_DISKA,WM_ENABLE  ,(WPARAM)0,(LPARAM)0);
 			SendDlgItemMessage (hDlg, IDC_DISKA,CB_SETCURSEL,(WPARAM)PhysicalDriveA,(LPARAM)0);
 			SendDlgItemMessage (hDlg, IDC_DISKB,CB_SETCURSEL,(WPARAM)PhysicalDriveB,(LPARAM)0);
 			SendDlgItemMessage (hDlg,IDC_ROMPATH,WM_SETTEXT,strlen(TempRomFileName),(LPARAM)(LPCSTR)TempRomFileName);
@@ -294,7 +297,7 @@ LRESULT CALLBACK Config(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 					{
 						PhysicalDriveA=0;
 						PhysicalDriveB=0;
-					//	MessageBox(0,"Wrong Version or Driver not installed","FDRAWCMD Driver",0);
+						// MessageBox(0,"Wrong Version or Driver not installed","FDRAWCMD Driver",0);
 					}
 					else
 					{
@@ -349,7 +352,7 @@ LRESULT CALLBACK Config(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 					ofn.lpstrTitle        = TEXT("Disk Rom Image") ;	// title bar string
 					ofn.Flags             = OFN_HIDEREADONLY;
 					GetOpenFileName (&ofn);
-						SendDlgItemMessage(hDlg,IDC_ROMPATH,WM_SETTEXT,strlen(TempRomFileName),(LPARAM)(LPCSTR)TempRomFileName);
+					SendDlgItemMessage(hDlg,IDC_ROMPATH,WM_SETTEXT,strlen(TempRomFileName),(LPARAM)(LPCSTR)TempRomFileName);
 				break;
 				case IDC_CLOCK:
 				case IDC_READONLY:
@@ -464,7 +467,8 @@ void BuildDynaMenu(void)
 	PathStripPath(TempBuf);
 	strcat(TempMsg,TempBuf);
 	DynamicMenuCallback( TempMsg,5015,SLAVE);
-//NEW
+	
+	//NEW
 	DynamicMenuCallback( (char *)"FD-502 Drive 3",6000,HEAD);
 	DynamicMenuCallback( (char *)"Insert",5017,SLAVE);
 	strcpy(TempMsg,"Eject: ");
@@ -472,7 +476,8 @@ void BuildDynaMenu(void)
 	PathStripPath(TempBuf);
 	strcat(TempMsg,TempBuf);
 	DynamicMenuCallback( TempMsg,5018,SLAVE);
-//NEW 
+	
+	//NEW 
 	DynamicMenuCallback( (char *)"FD-502 Config",5016,STANDALONE);
 	DynamicMenuCallback( (char *)"",1,0);
 }
@@ -657,6 +662,7 @@ void LoadConfig(void)
 	strcat(RGBRomPath, "rgbdos.rom");	//Future, Grey out dialog option if can't find file
 	LoadExtRom(TandyDisk, DiskRomPath);
 	LoadExtRom(RGBDisk, RGBRomPath);
+
 	if (PersistDisks)
 		for (Index=0;Index<4;Index++)
 		{
@@ -665,7 +671,6 @@ void LoadConfig(void)
 			if (strlen(DiskName))
 			{
 				RetVal=mount_disk_image(DiskName,Index);
-				//MessageBox(0, "Disk load attempt", "OK", 0);
 				if (RetVal)
 				{
 					if ( (!strcmp(DiskName,"*Floppy A:")) )	//RealDisks
@@ -704,15 +709,14 @@ void SaveConfig(void)
 
 unsigned char LoadExtRom( unsigned char RomType,char *FilePath)	//Returns 1 on if loaded
 {
-
 	FILE *rom_handle=NULL;
 	unsigned short index=0;
 	unsigned char RetVal=0;
 	unsigned char *ThisRom[3]={ExternalRom,DiskRom,RGBDiskRom};
 	
-//	ThisRom[0]=ExternalRom;
-//	ThisRom[1]=DiskRom;
-//	ThisRom[2]=RGBDiskRom;
+	//	ThisRom[0]=ExternalRom;
+	//	ThisRom[1]=DiskRom;
+	//	ThisRom[2]=RGBDiskRom;
 
 	rom_handle=fopen(FilePath,"rb");
 	if (rom_handle==NULL)

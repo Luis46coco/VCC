@@ -26,8 +26,8 @@ This file is part of VCC (Virtual Color Computer).
 #include "logger.h"
 #include "../fileops.h"
 
-static char FileName[MAX_PATH] { 0 };
-static char IniFile[MAX_PATH]  { 0 };
+static char FileName[MAX_PATH]=""; // JR_VC6
+static char IniFile[MAX_PATH]="";  // JR_VC6
 
 typedef unsigned char (*MEMREAD8)(unsigned short);
 typedef void (*MEMWRITE8)(unsigned char,unsigned short);

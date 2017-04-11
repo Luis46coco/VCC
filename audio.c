@@ -96,7 +96,7 @@ int SoundInit (HWND main_window_handle,_GUID * Guid,unsigned short Rate)
 		if (hr!=DS_OK)
 			return(1);
 
-		hr=lpds->SetCooperativeLevel(main_window_handle,DSSCL_NORMAL);//DSSCL_NORMAL);// set cooperation level normal DSSCL_EXCLUSIVE
+		hr=lpds->SetCooperativeLevel(main_window_handle, DSSCL_NORMAL);//DSSCL_NORMAL);// set cooperation level normal DSSCL_EXCLUSIVE
 		if (hr!=DS_OK)
 			return(1);
 		// set up the format data structure
