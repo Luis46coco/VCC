@@ -23,7 +23,7 @@ With that said, I will, however, look at adding “back” the capability of compili
 
 --------------------------------------------------------------------------------
 
-4/10/17: Ok… this thing is back to compiling/building using VS6 (with the last good service pack SP6). This has all the latest changes to VCC-1.200b including Mark McDougall’s changes (msmcdoug branch) that allow it to compile using MinGW-w64, minus his “profiling code” which VS6 cannot compile. (TODO: link to notes on that issue here)
+**4/11/17**: Ok... this thing is back to compiling/building using VS6 (with the last good service pack SP6). This has all the latest changes to VCC-1.200b including Mark McDougall’s changes (msmcdoug branch) that allow it to compile using MinGW-w64, minus his “profiling code” which VS6 cannot compile. (TODO: link to notes on that issue here)
 
 It includes one change --> changed all the dialog boxes to use Tahoma 10pt font – this is a much better looking font that the default MS Sans Serif 8pt.   
 
