@@ -1,6 +1,6 @@
 # “*VCC-Classic*”
 
-[__NEWS__](NEWS.md) | [__TODO__](TODO.md) | [__NOTES__](docs/NOTES.md)
+[__NEWS__](docs/NEWS.md) | [__TODO__](docs/TODO.md) | [__NOTES__](docs/NOTES.md)
 
 I am slowly building up steam to work on this thing. I’ve been wanting to for a long time but have NOT had the time.  Well, I still don’t.  But I am just going to make the time. If you are reading this, don’t expect a lot of progress fast. 
 

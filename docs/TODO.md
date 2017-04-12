@@ -1,3 +1,5 @@
+[__NEWS__](NEWS.md) | [__NOTES__](NOTES.md)
+
 ### My TODO – list of priorities. 
 * Study the code and begin making some notes on it -- put the notes in *.md files 
 * ~~Locate my last changes from 6/2016 and sync w/ this baseline.~~ 4/10/17 
@@ -6,5 +8,3 @@
 * Next would be to refresh a ROM file and reset CPU when a file change occurs, for quick development of ROMs (also look at doing the same thing for DSK files (and .bin? files)
 * Add a ToolBar, that is dockable, w/ the most frequent settings.  
 * Look over the issues list on the VCC site.
-
-click for [NEWS](NEWS.md)
