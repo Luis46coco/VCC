@@ -482,7 +482,6 @@ LRESULT CALLBACK Config(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     return FALSE;
 }
 
-
 unsigned char MountModule(unsigned char Slot,char *ModName)
 {
 	unsigned char ModuleType=0;
@@ -623,23 +622,21 @@ void LoadCartDLL(unsigned char Slot,char *DllPath)
 	memset(&ofn,0,sizeof(ofn));
 	ofn.lStructSize       = sizeof (OPENFILENAME) ;
 	ofn.hwndOwner         = GetTopWindow(NULL);
-	ofn.lpstrFilter       =	"Program Packs\0*.ROM;*.DLL\0\0" ;			// filter string
-	ofn.nFilterIndex      = 1 ;								// current filter index
-	ofn.lpstrFile         = DllPath;						// contains full path and filename on return
-	ofn.nMaxFile          = MAX_PATH;						// sizeof lpstrFile
-	ofn.lpstrFileTitle    = NULL;							// filename and extension only
-	ofn.nMaxFileTitle     = MAX_PATH ;						// sizeof lpstrFileTitle
-	ofn.lpstrInitialDir   = NULL;							// initial directory
-	ofn.lpstrTitle        = TEXT("Load Program Pack");	// title bar string
+	ofn.lpstrFilter       =	"Program Packs\0*.ROM;*.DLL\0\0" ;	// filter string
+	ofn.nFilterIndex      = 1 ;									// current filter index
+	ofn.lpstrFile         = DllPath;							// contains full path and filename on return
+	ofn.nMaxFile          = MAX_PATH;							// sizeof lpstrFile
+	ofn.lpstrFileTitle    = NULL;								// filename and extension only
+	ofn.nMaxFileTitle     = MAX_PATH ;							// sizeof lpstrFileTitle
+	ofn.lpstrInitialDir   = NULL;								// initial directory
+	ofn.lpstrTitle        = TEXT("Load Program Pack");			// title bar string
 	ofn.Flags             = OFN_HIDEREADONLY;
 	if ( GetOpenFileName (&ofn) )
 	{
 		RetVal= MountModule( Slot,DllPath);
-
 	}
 	return;
 }
-
 
 void LoadConfig(void)
 {
@@ -772,30 +769,30 @@ void BuildDynaMenu(void)	//STUB
 	unsigned char TempIndex=0;
 	char TempMsg[512]="";
 	if (DynamicMenuCallback ==NULL)
-		MessageBox(0,"No good","Ok",0);
-	DynamicMenuCallback( (char *)"",0,0);
-	DynamicMenuCallback( (char *)"",6000,0);
-	DynamicMenuCallback( (char *)"MPI Slot 4",6000,HEAD);
-	DynamicMenuCallback( (char *)"Insert",5010,SLAVE);
+		MessageBox(0,"No good","Ok", 0);
+	DynamicMenuCallback((char *)"", 0, 0);
+	DynamicMenuCallback((char *)"", 6000, 0);
+	DynamicMenuCallback((char *)"MPI Slot 4", 6000, HEAD);
+	DynamicMenuCallback((char *)"Insert", 5010, SLAVE);
 	sprintf(TempMsg,"Eject: ");
 	strcat(TempMsg,SlotLabel[3]);
-	DynamicMenuCallback( TempMsg,5011,SLAVE);
-	DynamicMenuCallback( (char *)"MPI Slot 3",6000,HEAD);
-	DynamicMenuCallback( (char *)"Insert",5012,SLAVE);
+	DynamicMenuCallback(TempMsg,5011,SLAVE);
+	DynamicMenuCallback((char *)"MPI Slot 3",6000,HEAD);
+	DynamicMenuCallback((char *)"Insert",5012,SLAVE);
 	sprintf(TempMsg,"Eject: ");
 	strcat(TempMsg,SlotLabel[2]);
-	DynamicMenuCallback( TempMsg,5013,SLAVE);
-	DynamicMenuCallback( (char *)"MPI Slot 2",6000,HEAD);
-	DynamicMenuCallback( (char *)"Insert",5014,SLAVE);
+	DynamicMenuCallback(TempMsg,5013,SLAVE);
+	DynamicMenuCallback((char *)"MPI Slot 2",6000,HEAD);
+	DynamicMenuCallback((char *)"Insert",5014,SLAVE);
 	sprintf(TempMsg,"Eject: ");
 	strcat(TempMsg,SlotLabel[1]);
-	DynamicMenuCallback( TempMsg,5015,SLAVE);
-	DynamicMenuCallback( (char *)"MPI Slot 1",6000,HEAD);
-	DynamicMenuCallback( (char *)"Insert",5016,SLAVE);
+	DynamicMenuCallback(TempMsg,5015,SLAVE);
+	DynamicMenuCallback((char *)"MPI Slot 1",6000,HEAD);
+	DynamicMenuCallback((char *)"Insert",5016,SLAVE);
 	sprintf(TempMsg,"Eject: ");
 	strcat(TempMsg,SlotLabel[0]);
-	DynamicMenuCallback( TempMsg,5017,SLAVE);
-	DynamicMenuCallback( (char *)"MPI Config",5018,STANDALONE);
+	DynamicMenuCallback(TempMsg,5017,SLAVE);
+	DynamicMenuCallback((char *)"MPI Config",5018,STANDALONE);
 
 	for (TempIndex=0;TempIndex<MenuIndex[3];TempIndex++)
 		DynamicMenuCallback(MenuName3[TempIndex],MenuId3[TempIndex]+80,Type3[TempIndex]);
@@ -809,7 +806,7 @@ void BuildDynaMenu(void)	//STUB
 	for (TempIndex=0;TempIndex<MenuIndex[0];TempIndex++)
 		DynamicMenuCallback(MenuName0[TempIndex],MenuId0[TempIndex]+20,Type0[TempIndex]);
 
-	DynamicMenuCallback( (char *)"",1,0);
+	DynamicMenuCallback((char *)"",1,0);
 }
 
 void DynamicMenuCallback0( char *MenuName,int MenuId, int Type)

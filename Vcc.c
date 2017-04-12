@@ -38,7 +38,7 @@ This file is part of VCC (Virtual Color Computer).
 #include <process.h>
 #include <commdlg.h>
 #include <stdio.h>
-#include <Mmsystem.h>
+#include <mmsystem.h>
 #include "fileops.h"
 #include "defines.h"
 #include "resource.h"
@@ -71,21 +71,22 @@ static unsigned char Qflag=0;
 static char CpuName[20]="CPUNAME";
 
 char QuickLoadFile[256];
-/***Forward declarations of functions included in this code module*****/
-BOOL				InitInstance	(HINSTANCE, int);
-LRESULT CALLBACK	About			(HWND, UINT, WPARAM, LPARAM);
-LRESULT CALLBACK WndProc( HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam );
+
+/* Forward declarations of functions included in this code module */
+BOOL InitInstance(HINSTANCE, int);
+LRESULT CALLBACK About(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 void SoftReset(void);
 void LoadIniFile(void);
 unsigned __stdcall EmuLoop(void *);
 unsigned __stdcall CartLoad(void *);
-void (*CPUInit)(void)=NULL;
-int  (*CPUExec)( int)=NULL;
-void (*CPUReset)(void)=NULL;
-void (*CPUAssertInterupt)(unsigned char,unsigned char)=NULL;
-void (*CPUDeAssertInterupt)(unsigned char)=NULL;
-void (*CPUForcePC)(unsigned short)=NULL;
+void (*CPUInit)(void) = NULL;
+int  (*CPUExec)(int) = NULL;
+void (*CPUReset)(void) = NULL;
+void (*CPUAssertInterupt)(unsigned char,unsigned char) = NULL;
+void (*CPUDeAssertInterupt)(unsigned char) = NULL;
+void (*CPUForcePC)(unsigned short) = NULL;
 void FullScreenToggle(void);
 
 // Message handlers
@@ -124,7 +125,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	// - not embedded in the application name string resource
 	LoadString(hInstance, IDS_APP_TITLE,g_szAppName, MAX_LOADSTRING);
 
-	if ( strlen(lpCmdLine) !=0)
+	if (strlen(lpCmdLine) !=0)
 	{
 		strcpy(QuickLoadFile,lpCmdLine);
 		strcpy(temp1,lpCmdLine);
@@ -135,8 +136,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		strcat(temp1,g_szAppName);
 		strcpy(g_szAppName,temp1);
 	}
-	EmuState.WindowSize.x=640;
-	EmuState.WindowSize.y=480;
+	EmuState.WindowSize.x = 640;
+	EmuState.WindowSize.y = 480;
 	InitInstance (hInstance, nCmdShow);
 	if (!CreateDDWindow(&EmuState))
 	{
@@ -145,8 +146,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	}
 	
 	Cls(0,&EmuState);
-	DynamicMenuCallback( (char *)"",0, 0);
-	DynamicMenuCallback( (char *)"",1, 0);
+	DynamicMenuCallback((char *)"", 0, 0);
+	DynamicMenuCallback((char *)"", 1, 0);
 
 	LoadConfig(&EmuState);			//Loads the default config file Vcc.ini from the exec directory
 	EmuState.ResetPending=2;
@@ -159,33 +160,33 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		EmuState.EmulationRunning=1;
 	}
 
-	hEvent = CreateEvent( NULL, FALSE, FALSE, NULL ) ;
+	hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 	if (hEvent==NULL)
 	{
 		MessageBox(0,"Can't create Thread!!","Error",0);
 		return(0);
 	}
 	
-	hEMUThread = (HANDLE)_beginthreadex( NULL, 0, &EmuLoop, hEvent, 0, &threadID );
+	hEMUThread = (HANDLE)_beginthreadex(NULL, 0, &EmuLoop, hEvent, 0, &threadID);
 	if (hEMUThread==NULL)
 	{
 		MessageBox(0,"Can't Start main Emulation Thread!","Ok",0);
 		return(0);
 	}
 	
-	WaitForSingleObject( hEvent, INFINITE );
+	WaitForSingleObject(hEvent, INFINITE);
 	SetThreadPriority(hEMUThread,THREAD_PRIORITY_NORMAL);
 
 	// InitializeCriticalSection(&FrameRender);
 
 	while (BinaryRunning) 
 	{
-		if (FlagEmuStop==TH_WAITING)		//Need to stop the EMU thread for screen mode change
-			{								//As it holds the Secondary screen buffer open while running
+		if (FlagEmuStop==TH_WAITING)	// Need to stop the EMU thread for screen mode change
+			{							// As it holds the Secondary screen buffer open while running
 				FullScreenToggle();
 				FlagEmuStop=TH_RUNNING;
 			}
-			GetMessage(&Msg,NULL,0,0);		//Seems if the main loop stops polling for Messages the child threads stall
+			GetMessage(&Msg,NULL,0,0);	// Seems if the main loop stops polling for Messages the child threads stall
 			TranslateMessage(&Msg);
 			DispatchMessage(&Msg) ;
 	} 
@@ -229,7 +230,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 
 			switch (wmId)
-			{	
+			{
 				case IDM_HELP_ABOUT:
 					DialogBox(EmuState.WindowInstance, 
 						(LPCTSTR)IDD_ABOUTBOX, 
@@ -258,7 +259,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							(DLGPROC)Config
 						) ;
 						// open modeless
-						ShowWindow(EmuState.ConfigDialog, SW_SHOWNORMAL) ;
+						ShowWindow(EmuState.ConfigDialog, SW_SHOWNORMAL);
 					}
 #endif
 				    break;
@@ -487,16 +488,16 @@ void OnPaint(HWND hwnd)
 {
 	// Let Windows know we've redrawn the Window - since we've bypassed
 	// the GDI, Windows can't figure that out by itself.
-//	ValidateRect( hwnd, NULL );
+	// ValidateRect( hwnd, NULL );
 	
 	// Over here we could do some normal GDI drawing
-//	PAINTSTRUCT ps;
-//	HDC hdc;
-//	HDC hdc = BeginPaint(hwnd, &ps);
-//	if (hdc)
-//	{
-//	}
-//	EndPaint(hwnd, &ps);
+	//	PAINTSTRUCT ps;
+	//	HDC hdc;
+	//	HDC hdc = BeginPaint(hwnd, &ps);
+	//	if (hdc)
+	//	{
+	//	}
+	//	EndPaint(hwnd, &ps);
 }
 /*--------------------------------------------------------------------------*/
 
@@ -786,5 +787,3 @@ void FullScreenToggle(void)
 	PauseAudio(false);
 	return;
 }
-
-
