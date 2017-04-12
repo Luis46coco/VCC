@@ -12,20 +12,7 @@ There is NO reason to update the code so that it only compiles under the new Dev
 
 With that said, I will, however, look at adding “back” the capability of compiling/building it w/ newer versions of VS (including 15/17), but just not those exclusively. And it looks like that Mark McDougall has already done the work to get it to compile w/ mingw64.   
 
-### My TODO – list of priorities. 
-* Study the code and begin making some notes on it -- put the notes in *.md files 
-* ~~Locate my last changes from 6/2016 and sync w/ this baseline.~~ 4/10/17 
-* First thing is find and fix the aspect ratio. And make that the default. That thing bugs me to no end. 
-* Then add some standard zooms line 1x 1.5x 2x … (the 1x & 2x … are ideal, because then they are pixel perfect)
-* Next would be to refresh a ROM file and reset CPU when a file change occurs, for quick development of ROMs (also look at doing the same thing for DSK files (and .bin? files)
-* Add a ToolBar, that is dockable, w/ the most frequent settings.  
-* Look over the issues list on the VCC site.
-
---------------------------------------------------------------------------------
-
-**4/11/17**: Ok... this thing is back to compiling/building using VS6 (with the last good service pack SP6). This has all the latest changes to VCC-1.200b including Mark McDougall’s changes (msmcdoug branch) that allow it to compile using MinGW-w64, minus his “profiling code” which VS6 cannot compile. (TODO: link to notes on that issue here)
-
-It includes one change --> changed all the dialog boxes to use Tahoma 10pt font – this is a much better looking font that the default MS Sans Serif 8pt.   
+[TODO](TODO.md) | [NEWS](NEWS.md) 
 
 ----- Edit Bellow -----
 
