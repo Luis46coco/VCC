@@ -1,0 +1,1 @@
+Test putting *.md files into folder + relative link 
