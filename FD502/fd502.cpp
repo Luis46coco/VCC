@@ -342,9 +342,9 @@ LRESULT CALLBACK Config(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 					memset(&ofn,0,sizeof(ofn));
 					ofn.lStructSize       = sizeof (OPENFILENAME) ;
 					ofn.hwndOwner         = GetTopWindow(NULL);
-					ofn.lpstrFilter		  = "Disk Rom Images\0*.rom;*.bin\0\0";	// filter ROM images
-					ofn.nFilterIndex      = 1 ;								// current filter index
-					ofn.lpstrFile         = TempRomFileName ;						// contains full path and filename on return
+					ofn.lpstrFilter		  = "Disk Rom Images (*.rom;*.bin)\0*.rom;*.bin\0\0";	// filter ROM images
+					ofn.nFilterIndex      = 1 ;							// current filter index
+					ofn.lpstrFile         = TempRomFileName ;					// contains full path and filename on return
 					ofn.nMaxFile          = MAX_PATH;						// sizeof lpstrFile
 					ofn.lpstrFileTitle    = NULL;							// filename and extension only
 					ofn.nMaxFileTitle     = MAX_PATH ;						// sizeof lpstrFileTitle
@@ -388,14 +388,14 @@ void Load_Disk(unsigned char disk)
 		ofn.Flags             = OFN_HIDEREADONLY;
 		ofn.hInstance         = GetModuleHandle(0);
 		ofn.lpstrDefExt       = "dsk";
-		ofn.lpstrFilter       =	"Disk Images\0*.dsk;*.os9\0\0";	// filter string "Disks\0*.DSK\0\0";
-		ofn.nFilterIndex      = 0 ;								// current filter index
+		ofn.lpstrFilter       =	"Disk Images (*.dsk;*.os9)\0*.dsk;*.os9\0\0";	// filter string "Disks\0*.DSK\0\0";
+		ofn.nFilterIndex      = 0 ;						// current filter index
 		ofn.lpstrFile         = TempFileName	 ;				// contains full path and filename on return
-		ofn.nMaxFile          = MAX_PATH;						// sizeof lpstrFile
-		ofn.lpstrFileTitle    = NULL;							// filename and extension only
-		ofn.nMaxFileTitle     = MAX_PATH ;						// sizeof lpstrFileTitle
-		ofn.lpstrInitialDir   = Dummy;							// initial directory
-		ofn.lpstrTitle        = "Insert Disk Image" ;			// title bar string
+		ofn.nMaxFile          = MAX_PATH;					// sizeof lpstrFile
+		ofn.lpstrFileTitle    = NULL;						// filename and extension only
+		ofn.nMaxFileTitle     = MAX_PATH ;					// sizeof lpstrFileTitle
+		ofn.lpstrInitialDir   = Dummy;						// initial directory
+		ofn.lpstrTitle        = "Insert Disk Image" ;				// title bar string
 
 		if ( GetOpenFileName(&ofn) )
 		{
