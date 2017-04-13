@@ -117,7 +117,7 @@ keytranslationentry_t keyTranslationsCoCo[] =
 	{ DIK_2,          DIK_LSHIFT,    16,     2,    64,    7 }, //   "
 	{ DIK_3,          DIK_LSHIFT,    16,     3,    64,    7 }, //   #
 	{ DIK_4,          DIK_LSHIFT,    16,     4,    64,    7 }, //   $
-	{ DIK_5,          DIK_LSHIFT,    16,     5,	   64,    7 }, //   %
+	{ DIK_5,          DIK_LSHIFT,    16,     5,    64,    7 }, //   %
 	{ DIK_6,          DIK_LSHIFT,    16,     6,    64,    7 }, //   &
 	{ DIK_7,          DIK_LSHIFT,    16,     7,    64,    7 }, //   '
 	{ DIK_8,          DIK_LSHIFT,    32,     0,    64,    7 }, //   (
